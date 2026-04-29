@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>DebugMaster - Kinetic Precision Dark Mode</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&amp;family=Space+Grotesk:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "on-background": "#1b1c1c",
+                      "surface-container-high": "#e9e8e7",
+                      "primary": "#586400",
+                      "primary-fixed": "#d5f000",
+                      "on-surface-variant": "#464932",
+                      "surface-bright": "#fbf9f8",
+                      "primary-fixed-dim": "#bbd200",
+                      "tertiary-fixed-dim": "#c7c7c1",
+                      "inverse-on-surface": "#f2f0f0",
+                      "on-tertiary-fixed": "#1b1c19",
+                      "on-secondary-container": "#636262",
+                      "on-primary-fixed": "#191e00",
+                      "surface-container": "#efeded",
+                      "on-error": "#ffffff",
+                      "on-secondary-fixed": "#1b1c1c",
+                      "surface-container-highest": "#e4e2e2",
+                      "tertiary-fixed": "#e3e3dd",
+                      "on-surface": "#1b1c1c",
+                      "background": "#fbf9f8",
+                      "surface-container-low": "#f5f3f3",
+                      "surface-tint": "#586400",
+                      "secondary": "#5f5e5e",
+                      "on-tertiary": "#ffffff",
+                      "on-primary-fixed-variant": "#424b00",
+                      "on-tertiary-container": "#676763",
+                      "error-container": "#ffdad6",
+                      "on-error-container": "#93000a",
+                      "on-tertiary-fixed-variant": "#464743",
+                      "secondary-container": "#e2dfde",
+                      "tertiary": "#5e5f5a",
+                      "secondary-fixed": "#e5e2e1",
+                      "on-secondary-fixed-variant": "#474746",
+                      "surface-dim": "#dbdad9",
+                      "secondary-fixed-dim": "#c8c6c5",
+                      "surface-variant": "#e4e2e2",
+                      "on-primary": "#ffffff",
+                      "surface": "#fbf9f8",
+                      "error": "#ba1a1a",
+                      "primary-container": "#d9f400",
+                      "on-secondary": "#ffffff",
+                      "outline": "#767960",
+                      "tertiary-container": "#e8e7e1",
+                      "outline-variant": "#c7c9ac",
+                      "inverse-surface": "#303031",
+                      "inverse-primary": "#bbd200",
+                      "on-primary-container": "#606d00",
+                      "surface-container-lowest": "#ffffff"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "lg": "48px",
+                      "base": "8px",
+                      "sm": "12px",
+                      "xl": "80px",
+                      "xs": "4px",
+                      "gutter": "24px",
+                      "md": "24px",
+                      "container-max": "1280px"
+              },
+              "fontFamily": {
+                      "display": [
+                              "spaceGrotesk"
+                      ],
+                      "headline-md": [
+                              "spaceGrotesk"
+                      ],
+                      "body-lg": [
+                              "manrope"
+                      ],
+                      "headline-lg": [
+                              "spaceGrotesk"
+                      ],
+                      "body-md": [
+                              "manrope"
+                      ],
+                      "label-sm": [
+                              "spaceGrotesk"
+                      ]
+              },
+              "fontSize": {
+                      "display": [
+                              "64px",
+                              {
+                                      "lineHeight": "1.1",
+                                      "letterSpacing": "-0.04em",
+                                      "fontWeight": "500"
+                              }
+                      ],
+                      "headline-md": [
+                              "24px",
+                              {
+                                      "lineHeight": "1.3",
+                                      "fontWeight": "500"
+                              }
+                      ],
+                      "body-lg": [
+                              "18px",
+                              {
+                                      "lineHeight": "1.6",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "headline-lg": [
+                              "40px",
+                              {
+                                      "lineHeight": "1.2",
+                                      "letterSpacing": "-0.02em",
+                                      "fontWeight": "500"
+                              }
+                      ],
+                      "body-md": [
+                              "16px",
+                              {
+                                      "lineHeight": "1.6",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "label-sm": [
+                              "12px",
+                              {
+                                      "lineHeight": "1",
+                                      "letterSpacing": "0.05em",
+                                      "fontWeight": "600"
+                              }
+                      ]
+              }
+      },
+          },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        /* Custom neon glow for dark mode accents */
+        .neon-glow {
+            box-shadow: 0 0 15px rgba(217, 244, 0, 0.3);
+        }
+        .text-neon {
+            text-shadow: 0 0 10px rgba(217, 244, 0, 0.4);
+        }
+    </style>
+</head>
+<body class="bg-zinc-950 text-white font-body-md antialiased min-h-screen flex flex-col selection:bg-primary-container selection:text-zinc-900">
+<!-- TopNavBar -->
+<nav class="bg-white/80 dark:bg-zinc-900/80 backdrop-blur-md font-['Space_Grotesk'] font-medium antialiased border-b border-zinc-200 dark:border-zinc-800 flex justify-between items-center w-full px-6 h-14 sticky top-0 z-50">
+<div class="flex items-center gap-6">
+<span class="text-xl font-bold tracking-tighter text-zinc-900 dark:text-white">DebugMaster</span>
+<!-- Navigation Links -->
+<div class="hidden md:flex items-center gap-6">
+<a class="text-zinc-900 dark:text-white border-b-2 border-lime-400 pb-1 hover:text-lime-500 transition-colors duration-200 scale-95 active:transition-transform" href="#">Dashboard</a>
+<a class="text-zinc-500 dark:text-zinc-400 hover:text-lime-500 transition-colors duration-200 scale-95 active:transition-transform" href="#">Projects</a>
+<a class="text-zinc-500 dark:text-zinc-400 hover:text-lime-500 transition-colors duration-200 scale-95 active:transition-transform" href="#">Documentation</a>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<!-- Search (implied on left of actions) -->
+<div class="hidden md:flex items-center bg-zinc-800 rounded-full px-3 py-1.5 border border-zinc-700 focus-within:border-lime-400 focus-within:ring-1 focus-within:ring-lime-400 transition-all">
+<span class="material-symbols-outlined text-zinc-400 text-sm mr-2" data-icon="search">search</span>
+<input class="bg-transparent border-none text-sm text-white focus:ring-0 p-0 w-48 placeholder-zinc-500 font-body-md" placeholder="Search..." type="text"/>
+</div>
+<!-- Trailing Icons -->
+<button class="text-zinc-400 hover:text-lime-400 transition-colors">
+<span class="material-symbols-outlined" data-icon="dark_mode">dark_mode</span>
+</button>
+<button class="text-zinc-400 hover:text-lime-400 transition-colors">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+</button>
+<button class="text-zinc-400 hover:text-lime-400 transition-colors relative">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+<span class="absolute top-0 right-0 w-2 h-2 bg-lime-400 rounded-full"></span>
+</button>
+<!-- Trailing Primary Action -->
+<button class="bg-lime-400 text-zinc-900 px-4 py-1.5 rounded-md font-bold text-sm hover:bg-lime-500 transition-colors ml-2 shadow-[0_0_10px_rgba(217,244,0,0.3)]">Deploy</button>
+</div>
+</nav>
+<!-- Main Content Area -->
+<div class="flex flex-1">
+<!-- SideNavBar -->
+<aside class="bg-zinc-50 dark:bg-zinc-950 font-['Space_Grotesk'] text-xs uppercase tracking-widest border-r border-zinc-200 dark:border-zinc-800 fixed left-0 top-14 bottom-0 flex flex-col items-center py-4 z-40 h-full w-16 transition-all duration-150 ease-in-out hidden md:flex">
+<!-- Header elements hidden per style_brand_logo: "hidden" -->
+<div class="flex flex-col gap-4 mt-4 w-full">
+<button class="w-full py-3 flex justify-center text-zinc-400 dark:text-zinc-600 hover:bg-zinc-100 dark:hover:bg-zinc-900 hover:text-zinc-900 dark:hover:text-zinc-100 transition-all group relative" title="Explorer">
+<span class="material-symbols-outlined" data-icon="folder_open">folder_open</span>
+</button>
+<button class="w-full py-3 flex justify-center text-zinc-400 dark:text-zinc-600 hover:bg-zinc-100 dark:hover:bg-zinc-900 hover:text-zinc-900 dark:hover:text-zinc-100 transition-all" title="Search">
+<span class="material-symbols-outlined" data-icon="search">search</span>
+</button>
+<button class="w-full py-3 flex justify-center bg-zinc-200 dark:bg-zinc-800 border-l-2 border-lime-400 text-zinc-900 dark:text-white transition-all" title="Source Control">
+<span class="material-symbols-outlined text-lime-400" data-icon="schema">schema</span>
+</button>
+<button class="w-full py-3 flex justify-center text-zinc-400 dark:text-zinc-600 hover:bg-zinc-100 dark:hover:bg-zinc-900 hover:text-zinc-900 dark:hover:text-zinc-100 transition-all" title="Run &amp; Debug">
+<span class="material-symbols-outlined" data-icon="bug_report">bug_report</span>
+</button>
+<button class="w-full py-3 flex justify-center text-zinc-400 dark:text-zinc-600 hover:bg-zinc-100 dark:hover:bg-zinc-900 hover:text-zinc-900 dark:hover:text-zinc-100 transition-all" title="Extensions">
+<span class="material-symbols-outlined" data-icon="extension">extension</span>
+</button>
+</div>
+<div class="mt-auto flex flex-col gap-4 w-full mb-14">
+<button class="w-full py-3 flex justify-center text-zinc-400 dark:text-zinc-600 hover:bg-zinc-100 dark:hover:bg-zinc-900 hover:text-zinc-900 dark:hover:text-zinc-100 transition-all" title="Profile">
+<span class="material-symbols-outlined" data-icon="account_circle">account_circle</span>
+</button>
+<button class="w-full py-3 flex justify-center text-zinc-400 dark:text-zinc-600 hover:bg-zinc-100 dark:hover:bg-zinc-900 hover:text-zinc-900 dark:hover:text-zinc-100 transition-all" title="Settings">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+</button>
+</div>
+</aside>
+<!-- Main Canvas -->
+<main class="flex-1 ml-0 md:ml-16 pb-12 pt-8 px-6 lg:px-12 max-w-[1400px] mx-auto w-full">
+<!-- Hero Section -->
+<section class="mb-xl flex flex-col lg:flex-row gap-lg items-center relative">
+<!-- Background ambient glow -->
+<div class="absolute top-1/2 left-1/4 -translate-y-1/2 w-96 h-96 bg-lime-400/10 rounded-full blur-[100px] pointer-events-none"></div>
+<div class="flex-1 space-y-6 relative z-10">
+<div class="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-zinc-800 bg-zinc-900/50 backdrop-blur text-xs font-label-sm text-lime-400 uppercase tracking-widest">
+<span class="w-2 h-2 rounded-full bg-lime-400 animate-pulse"></span>
+                        v2.0 Beta Live
+                    </div>
+<h1 class="font-display text-display text-white">Surgical precision for your <span class="text-transparent bg-clip-text bg-gradient-to-r from-lime-400 to-emerald-400">codebase.</span></h1>
+<p class="font-body-lg text-zinc-400 max-w-xl">DebugMaster provides AI-driven insights, sub-millisecond tracing, and kinetic architecture mapping to untangle the most complex microservices.</p>
+<div class="flex gap-4 pt-4">
+<button class="bg-lime-400 text-zinc-900 font-label-sm px-6 py-3 rounded hover:bg-lime-500 transition-colors flex items-center gap-2 shadow-[0_0_15px_rgba(217,244,0,0.2)]">
+                            Start Debugging
+                            <span class="material-symbols-outlined text-sm" data-icon="arrow_forward">arrow_forward</span>
+</button>
+<button class="border border-zinc-700 text-white font-label-sm px-6 py-3 rounded hover:border-lime-400 hover:text-lime-400 transition-colors flex items-center gap-2">
+<span class="material-symbols-outlined text-sm" data-icon="play_circle">play_circle</span>
+                            View Demo
+                        </button>
+</div>
+</div>
+<div class="flex-1 w-full relative z-10">
+<div class="rounded-xl border border-zinc-800 bg-zinc-900/80 backdrop-blur-xl p-4 shadow-2xl relative overflow-hidden">
+<!-- Code snippet mock -->
+<div class="flex items-center gap-2 mb-4 pb-4 border-b border-zinc-800">
+<div class="w-3 h-3 rounded-full bg-zinc-700"></div>
+<div class="w-3 h-3 rounded-full bg-zinc-700"></div>
+<div class="w-3 h-3 rounded-full bg-zinc-700"></div>
+<span class="text-xs font-mono text-zinc-500 ml-2">tracing.rs</span>
+</div>
+<div class="font-mono text-sm leading-relaxed text-zinc-300">
+<span class="text-purple-400">pub async fn</span> <span class="text-blue-400">analyze_trace</span>(id: <span class="text-yellow-400">String</span>) -&gt; <span class="text-yellow-400">Result</span>&lt;Trace, Error&gt; {<br/>
+                              <span class="text-zinc-500">// Initialize kinetic mapper</span><br/>
+                              <span class="text-purple-400">let</span> mapper = Mapper::<span class="text-blue-400">new</span>();<br/>
+                              <br/>
+                              <span class="text-purple-400">let</span> nodes = <span class="text-emerald-400">await!</span>(mapper.<span class="text-blue-400">fetch_nodes</span>(&amp;id))?;<br/>
+                              <br/>
+                              <span class="text-purple-400">if</span> nodes.<span class="text-blue-400">has_anomalies</span>() {<br/>
+                                log::<span class="text-blue-400">warn!</span>(<span class="text-green-400">"Anomaly detected in trace {}"</span>, id);<br/>
+                              }<br/>
+                              <br/>
+                              <span class="text-yellow-400">Ok</span>(Trace { nodes })<br/>
+                            }
+                        </div>
+<!-- Overlay overlay -->
+<div class="absolute bottom-4 right-4 bg-lime-400/10 border border-lime-400/30 rounded p-2 flex items-center gap-2 backdrop-blur-md">
+<span class="material-symbols-outlined text-lime-400 text-sm" data-icon="check_circle">check_circle</span>
+<span class="text-xs font-mono text-lime-400">Latency: 12ms</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Bento Grid Section -->
+<section class="mb-xl">
+<h2 class="font-headline-lg text-headline-lg mb-md text-white">System Architecture</h2>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-md auto-rows-[250px]">
+<!-- Bento Item 1: Large -->
+<div class="md:col-span-2 rounded-xl border border-zinc-800 bg-zinc-900/50 hover:border-lime-400/50 transition-colors p-6 flex flex-col justify-between group overflow-hidden relative">
+<div class="absolute inset-0 bg-gradient-to-br from-lime-400/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+<div class="relative z-10">
+<div class="w-10 h-10 rounded bg-zinc-800 flex items-center justify-center mb-4 border border-zinc-700 group-hover:border-lime-400/50 transition-colors">
+<span class="material-symbols-outlined text-lime-400" data-icon="hub">hub</span>
+</div>
+<h3 class="font-headline-md text-headline-md mb-2 text-white">Neural Dependency Mapping</h3>
+<p class="font-body-md text-zinc-400 max-w-md">Automatically visualize complex microservice relationships with real-time state inference and bottleneck detection.</p>
+</div>
+<img alt="" class="absolute bottom-0 right-0 w-2/3 h-2/3 object-cover opacity-20 group-hover:opacity-40 transition-opacity" data-alt="abstract glowing data nodes connected by thin neon lines on dark background representing network mapping" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDNNc0xkonQiPN9El_BiHtAUPk3j-JPgQ7GdkoYSjitasO9SaxdSC4iZ9l_Qg4hSqxRhtnFWCR90W9vMrXvBu7-BD33c1FevCvUBK2YmNy9KQPJfSrgYnNiK6kgHU73IqonihbTNVtvkjf5IomnTe1Q2GrhaLQR6S4zyH6lJ-pfuyqqUgHgs6eLxQtQt_R-4wP0uCuy7ImF_BMoaFjYxWV00tKt-nRqr_kZAM3uPtSmNexotIGT_JPsMgcphA6bSxoJ-kOHAOWQdts" style="mask-image: linear-gradient(to top left, black, transparent);"/>
+</div>
+<!-- Bento Item 2: Small -->
+<div class="rounded-xl border border-zinc-800 bg-zinc-900/50 hover:border-lime-400/50 transition-colors p-6 flex flex-col relative group">
+<div class="w-10 h-10 rounded bg-zinc-800 flex items-center justify-center mb-4 border border-zinc-700 group-hover:border-lime-400/50 transition-colors">
+<span class="material-symbols-outlined text-zinc-300 group-hover:text-lime-400" data-icon="bolt">bolt</span>
+</div>
+<h3 class="font-bold text-lg mb-2 text-white">Sub-ms Tracing</h3>
+<p class="font-body-md text-zinc-400 text-sm">Distributed tracing with virtually zero overhead. Monitor execution paths instantly.</p>
+<div class="mt-auto">
+<div class="flex items-center justify-between text-xs font-mono text-zinc-500 mb-1">
+<span>P99 Latency</span>
+<span class="text-lime-400">1.2ms</span>
+</div>
+<div class="w-full bg-zinc-800 h-1 rounded-full overflow-hidden">
+<div class="bg-lime-400 h-full w-[15%]"></div>
+</div>
+</div>
+</div>
+<!-- Bento Item 3: Small -->
+<div class="rounded-xl border border-zinc-800 bg-zinc-900/50 hover:border-lime-400/50 transition-colors p-6 flex flex-col relative group">
+<div class="w-10 h-10 rounded bg-zinc-800 flex items-center justify-center mb-4 border border-zinc-700 group-hover:border-lime-400/50 transition-colors">
+<span class="material-symbols-outlined text-zinc-300 group-hover:text-lime-400" data-icon="security">security</span>
+</div>
+<h3 class="font-bold text-lg mb-2 text-white">Automated Remediation</h3>
+<p class="font-body-md text-zinc-400 text-sm">Self-healing infrastructure rules that execute before alerts even trigger.</p>
+</div>
+<!-- Bento Item 4: Large Wide -->
+<div class="md:col-span-2 rounded-xl border border-zinc-800 bg-zinc-900/50 hover:border-lime-400/50 transition-colors p-6 flex items-center justify-between group overflow-hidden relative">
+<div class="relative z-10 w-1/2">
+<h3 class="font-headline-md text-headline-md mb-2 text-white">CI/CD Injection</h3>
+<p class="font-body-md text-zinc-400">Seamlessly integrate diagnostic hooks into your existing pipeline without touching deployment scripts.</p>
+<button class="mt-4 text-xs font-label-sm text-lime-400 uppercase tracking-widest hover:text-white transition-colors flex items-center gap-1">
+                                View Integrations <span class="material-symbols-outlined text-[14px]" data-icon="chevron_right">chevron_right</span>
+</button>
+</div>
+<div class="w-1/2 h-full relative">
+<!-- Abstract UI representation -->
+<div class="absolute right-0 top-1/2 -translate-y-1/2 flex flex-col gap-2 w-48 opacity-60 group-hover:opacity-100 transition-opacity">
+<div class="h-8 bg-zinc-800 border border-zinc-700 rounded flex items-center px-3 gap-2">
+<span class="material-symbols-outlined text-xs text-zinc-500" data-icon="commit">commit</span>
+<div class="h-2 w-16 bg-zinc-600 rounded"></div>
+</div>
+<div class="h-8 bg-zinc-800 border border-zinc-700 rounded flex items-center px-3 gap-2 ml-4">
+<span class="material-symbols-outlined text-xs text-blue-400" data-icon="build">build</span>
+<div class="h-2 w-20 bg-zinc-600 rounded"></div>
+</div>
+<div class="h-8 bg-zinc-800 border border-lime-400/30 rounded flex items-center px-3 gap-2 ml-8 relative overflow-hidden">
+<div class="absolute inset-0 bg-lime-400/10"></div>
+<span class="material-symbols-outlined text-xs text-lime-400 relative z-10" data-icon="rocket_launch">rocket_launch</span>
+<div class="h-2 w-12 bg-lime-400/50 rounded relative z-10"></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+</main>
+</div>
+<!-- Footer -->
+<footer class="bg-zinc-100 dark:bg-zinc-950 font-['Space_Grotesk'] text-[10px] font-mono tracking-tight border-t border-zinc-200 dark:border-zinc-800 fixed bottom-0 left-0 w-full h-6 px-4 flex justify-between items-center z-50">
+<div class="text-zinc-500 dark:text-zinc-400">
+            © 2024 DebugMaster AI • System: Latency 24ms
+        </div>
+<div class="flex gap-4">
+<a class="text-zinc-500 dark:text-zinc-400 cursor-pointer transition-opacity opacity-80 hover:opacity-100 hover:text-zinc-900 dark:hover:text-zinc-200" href="#">v1.2.0</a>
+<a class="text-zinc-500 dark:text-zinc-400 cursor-pointer transition-opacity opacity-80 hover:opacity-100 hover:text-zinc-900 dark:hover:text-zinc-200" href="#">Logs</a>
+<a class="text-zinc-500 dark:text-zinc-400 cursor-pointer transition-opacity opacity-80 hover:opacity-100 hover:text-zinc-900 dark:hover:text-zinc-200" href="#">Console</a>
+<a class="text-zinc-500 dark:text-zinc-400 cursor-pointer transition-opacity opacity-80 hover:opacity-100 hover:text-zinc-900 dark:hover:text-zinc-200" href="#">Support</a>
+</div>
+</footer>
+</body></html>

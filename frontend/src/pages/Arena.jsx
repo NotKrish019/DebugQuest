@@ -1,0 +1,285 @@
+import React, { useState, useEffect, useContext, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
+import Editor from '@monaco-editor/react';
+import axios from 'axios';
+import { ThemeContext } from '../App';
+import { Play, Send, Lightbulb, RefreshCw, ChevronRight, Terminal, User, Bell, Box, Target, Clock, Zap } from 'lucide-react';
+
+export default function Arena() {
+  const { user, xp, addXp } = useContext(ThemeContext);
+  const navigate = useNavigate();
+  const [loading, setLoading] = useState(true);
+  const [challenge, setChallenge] = useState(null);
+  const [sessionId, setSessionId] = useState(null);
+  const [code, setCode] = useState("");
+  const [output, setOutput] = useState([]);
+  const [showHint, setShowHint] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isFixed, setIsFixed] = useState(false);
+  const [attempts, setAttempts] = useState(0);
+  const [time, setTime] = useState(0);
+  const editorRef = useRef(null);
+  const timerRef = useRef(null);
+
+  const fetchChallenge = async () => {
+    setLoading(true);
+    setOutput([{ type: 'info', text: '[SYSTEM]: Synchronizing with Gemini AI node...' }]);
+    try {
+      const res = await axios.post('/api/generate-challenge', { 
+        seed: Math.random().toString(36).substring(7) 
+      });
+      setChallenge(res.data);
+      setSessionId(res.data.sessionId);
+      setCode(res.data.buggy_code);
+      setLoading(false);
+      setIsFixed(false);
+      setShowHint(false);
+      setAttempts(0);
+      setTime(0);
+      
+      // Start server-synced timer
+      if (timerRef.current) clearInterval(timerRef.current);
+      timerRef.current = setInterval(() => {
+        setTime(prev => prev + 1);
+      }, 1000);
+
+      setOutput(prev => [...prev, { type: 'info', text: `[SYSTEM]: Fresh bug detected in ${res.data.language.toUpperCase()} environment.` }]);
+    } catch (err) {
+      setOutput(prev => [...prev, { type: 'error', text: '[SYSTEM]: Failed to fetch challenge from Gemini.' }]);
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchChallenge();
+    return () => {
+        if (timerRef.current) clearInterval(timerRef.current);
+    };
+  }, []);
+
+  const handleEditorDidMount = (editor, monaco) => {
+    editorRef.current = editor;
+  };
+
+  const handleSubmit = async () => {
+    setIsSubmitting(true);
+    setAttempts(prev => prev + 1);
+    setOutput(prev => [...prev, { type: 'process', text: '[SYSTEM]: Running integrity checks...' }]);
+    
+    try {
+      const res = await axios.post('/api/verify-fix', {
+        sessionId,
+        userCode: code,
+        userId: user?.id
+      });
+
+      if (res.data.is_correct) {
+        if (timerRef.current) clearInterval(timerRef.current);
+        setOutput(prev => [...prev, { type: 'success', text: `[SYSTEM]: FIX SUCCESSFUL! Matrix restored. +${res.data.earnedXp} XP earned.` }]);
+        setIsFixed(true);
+        addXp(res.data.earnedXp);
+      } else {
+        setOutput(prev => [...prev, { type: 'error', text: `[SYSTEM]: Verification failed. ${res.data.feedback_hint}` }]);
+      }
+    } catch (err) {
+      setOutput(prev => [...prev, { type: 'error', text: '[SYSTEM]: Connection error during verification.' }]);
+    }
+    setIsSubmitting(false);
+  };
+
+  const formatTime = (seconds) => {
+    const mins = Math.floor(seconds / 60);
+    const secs = seconds % 60;
+    return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+  };
+
+  if (loading) {
+    return (
+      <div className="h-screen w-full bg-zinc-950 flex flex-col items-center justify-center space-y-6">
+        <div className="relative">
+          <div className="w-24 h-24 border-4 border-lime-400/20 border-t-lime-400 rounded-full animate-spin"></div>
+          <div className="absolute inset-0 flex items-center justify-center">
+            <Zap className="text-lime-400 w-8 h-8 animate-pulse" />
+          </div>
+        </div>
+        <div className="text-center space-y-2">
+          <h2 className="text-xl font-bold text-white tracking-tighter uppercase italic">Initializing Arena</h2>
+          <p className="text-zinc-500 font-mono text-sm">[SYSTEM]: Fetching fresh bug from Gemini...</p>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="bg-zinc-950 text-zinc-300 font-body-md h-screen overflow-hidden flex flex-col selection:bg-lime-400/30 selection:text-white">
+      {/* TopNavBar */}
+      <nav className="flex justify-between items-center w-full px-6 h-14 sticky top-0 z-50 bg-zinc-950/80 backdrop-blur-md border-b border-zinc-800 font-['Space_Grotesk']">
+        <div className="flex items-center gap-6">
+          <div className="text-xl font-bold tracking-tighter text-white flex items-center gap-2 cursor-pointer" onClick={() => navigate('/')}>
+            <Terminal className="text-lime-400 w-6 h-6" />
+            DebugQuest
+          </div>
+          <div className="hidden md:flex items-center gap-6 ml-4">
+            <button onClick={() => navigate('/dashboard')} className="text-zinc-400 hover:text-white transition-colors">Dashboard</button>
+            <button onClick={() => navigate('/projects')} className="text-zinc-400 hover:text-white transition-colors">Projects</button>
+            <button onClick={() => navigate('/docs')} className="text-zinc-400 hover:text-white transition-colors">Documentation</button>
+          </div>
+        </div>
+        <div className="flex items-center gap-4">
+            <div className="flex flex-col items-end mr-4">
+                <div className="text-[10px] text-zinc-500 font-mono uppercase tracking-widest">{user?.rank_title || "Novice Hunter"}</div>
+                <div className="w-32 h-1.5 bg-zinc-800 rounded-full mt-1 overflow-hidden">
+                    <div className="h-full bg-lime-400 shadow-[0_0_8px_rgba(217,244,0,0.6)] transition-all duration-1000" style={{ width: `${(xp % 2000 / 2000) * 100}%` }}></div>
+                </div>
+            </div>
+          <button className="bg-lime-400 text-zinc-950 px-4 py-1.5 rounded-md font-bold text-sm hover:bg-white transition-colors flex items-center gap-2" onClick={() => navigate('/dashboard')}>
+            <User size={16} />
+            {user?.username || "Profile"}
+          </button>
+        </div>
+      </nav>
+
+      <div className="flex flex-1 overflow-hidden relative">
+        <main className="flex-1 flex h-full bg-zinc-950 overflow-hidden">
+          {/* Editor Area */}
+          <div className="flex-1 flex flex-col h-full bg-zinc-950">
+            <div className="flex border-b border-zinc-800 bg-zinc-900/40 px-4 py-2 justify-between items-center">
+              <div className="text-zinc-200 text-xs font-mono flex items-center gap-2">
+                <span className="text-yellow-500 text-[10px]">{challenge?.language?.toUpperCase()}</span>
+                {challenge?.title}
+              </div>
+              <div className="flex gap-4">
+                  <div className="flex items-center gap-2 text-zinc-500 text-xs font-mono">
+                    <Clock size={12} />
+                    {formatTime(time)}
+                  </div>
+                  <div className="flex items-center gap-2 text-zinc-500 text-xs font-mono">
+                    <Target size={12} />
+                    Attempts: {attempts}
+                  </div>
+              </div>
+            </div>
+            
+            <div className="flex-1 overflow-hidden relative group">
+              <Editor
+                height="100%"
+                theme="vs-dark"
+                language={challenge?.language || "javascript"}
+                value={code}
+                onChange={(value) => setCode(value)}
+                onMount={handleEditorDidMount}
+                options={{
+                  fontSize: 14,
+                  fontFamily: 'Fira Code, monospace',
+                  minimap: { enabled: false },
+                  scrollBeyondLastLine: false,
+                  padding: { top: 20 },
+                  lineNumbers: 'on',
+                  cursorStyle: 'line',
+                  automaticLayout: true,
+                }}
+              />
+            </div>
+
+            {/* Console Output */}
+            <div className="h-1/4 border-t border-zinc-800 bg-[#09090b] flex flex-col">
+              <div className="flex border-b border-zinc-800 px-4 py-2 bg-zinc-900/20">
+                <span className="text-[10px] font-bold text-zinc-500 uppercase tracking-widest flex items-center gap-2">
+                  <Terminal size={12} />
+                  Arena Console
+                </span>
+              </div>
+              <div className="flex-1 p-4 font-mono text-xs overflow-y-auto space-y-2 no-scrollbar">
+                {output.map((line, i) => (
+                  <div key={i} className={`flex gap-2 ${line.type === 'error' ? 'text-red-400' : line.type === 'success' ? 'text-lime-400' : 'text-zinc-400'}`}>
+                    <span className="text-zinc-700">[{new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' })}]</span>
+                    <span className="flex-1 whitespace-pre-wrap">{line.text}</span>
+                  </div>
+                ))}
+                {isFixed && (
+                    <div className="mt-4 p-4 border border-lime-400/20 bg-lime-400/5 rounded-lg animate-in fade-in slide-in-from-bottom-2 duration-500">
+                        <div className="flex items-center justify-between">
+                            <div>
+                                <h4 className="text-lime-400 font-bold text-sm">CHALLENGE COMPLETE</h4>
+                                <p className="text-zinc-400 text-[10px]">Intelligence synchronized. XP updated on server.</p>
+                            </div>
+                            <button 
+                                onClick={fetchChallenge}
+                                className="bg-lime-400 text-zinc-950 px-4 py-2 rounded text-xs font-bold hover:bg-white transition-colors flex items-center gap-2"
+                            >
+                                Next Arena
+                                <ChevronRight size={14} />
+                            </button>
+                        </div>
+                    </div>
+                )}
+              </div>
+            </div>
+          </div>
+
+          {/* Right Panel */}
+          <div className="w-80 border-l border-zinc-800 bg-zinc-950 flex flex-col h-full overflow-y-auto no-scrollbar">
+            <div className="p-6 space-y-6">
+              <div className="space-y-2">
+                <h2 className="text-sm font-bold text-white uppercase tracking-tight">Mission Briefing</h2>
+                <div className="p-4 bg-zinc-900/50 border border-zinc-800 rounded-xl">
+                    <p className="text-xs text-zinc-400 leading-relaxed italic">
+                        "{challenge?.description}"
+                    </p>
+                </div>
+              </div>
+
+              <div className="space-y-4">
+                <button 
+                    className={`w-full py-4 rounded-xl font-bold text-sm transition-all flex items-center justify-center gap-2 ${isFixed ? 'bg-zinc-800 text-zinc-500 cursor-not-allowed' : 'bg-lime-400 text-zinc-950 hover:shadow-[0_0_20px_rgba(217,244,0,0.4)] active:scale-95'}`}
+                    onClick={handleSubmit}
+                    disabled={isSubmitting || isFixed}
+                >
+                  {isSubmitting ? <RefreshCw className="animate-spin" size={16} /> : <Send size={16} />}
+                  Submit Fix
+                </button>
+
+                <div className="p-4 bg-zinc-900 border border-zinc-800 rounded-xl relative overflow-hidden group">
+                    <div className="flex items-center gap-2 mb-3">
+                        <Lightbulb className="text-lime-400 w-4 h-4" />
+                        <span className="text-xs font-bold text-white uppercase tracking-wider">Socratic Mentor</span>
+                    </div>
+                    {showHint ? (
+                        <p className="text-xs text-zinc-400 leading-relaxed italic animate-in fade-in duration-500">
+                            "{challenge?.socratic_hint}"
+                        </p>
+                    ) : (
+                        <button 
+                            onClick={() => setShowHint(true)}
+                            className="w-full py-2 border border-zinc-700 rounded-lg text-[10px] text-zinc-500 uppercase font-bold hover:border-lime-400/50 hover:text-zinc-300 transition-all"
+                        >
+                            Request Hint (-50 XP)
+                        </button>
+                    )}
+                </div>
+              </div>
+
+              <div className="pt-6 border-t border-zinc-800">
+                <h3 className="text-[10px] font-bold text-zinc-500 uppercase tracking-widest mb-4">Tactical Analytics</h3>
+                <div className="space-y-3">
+                    <div className="flex justify-between items-center">
+                        <span className="text-xs text-zinc-500">Base Reward</span>
+                        <span className="text-xs font-mono text-white">{challenge?.base_xp} XP</span>
+                    </div>
+                    <div className="flex justify-between items-center">
+                        <span className="text-xs text-zinc-500">Time Penalty</span>
+                        <span className="text-xs font-mono text-red-500">-{Math.floor(time / 6)}%</span>
+                    </div>
+                    <div className="flex justify-between items-center">
+                        <span className="text-xs text-zinc-500">Attempt Multiplier</span>
+                        <span className="text-xs font-mono text-blue-400">x{Math.max(0.1, (1 / attempts).toFixed(2))}</span>
+                    </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </main>
+      </div>
+    </div>
+  );
+}

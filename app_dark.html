@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>DebugMaster AI - Dark Mode IDE</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&amp;family=Manrope:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-background": "#1b1c1c",
+                        "surface-container-high": "#e9e8e7",
+                        "primary": "#586400",
+                        "primary-fixed": "#d5f000",
+                        "on-surface-variant": "#464932",
+                        "surface-bright": "#fbf9f8",
+                        "primary-fixed-dim": "#bbd200",
+                        "tertiary-fixed-dim": "#c7c7c1",
+                        "inverse-on-surface": "#f2f0f0",
+                        "on-tertiary-fixed": "#1b1c19",
+                        "on-secondary-container": "#636262",
+                        "on-primary-fixed": "#191e00",
+                        "surface-container": "#efeded",
+                        "on-error": "#ffffff",
+                        "on-secondary-fixed": "#1b1c1c",
+                        "surface-container-highest": "#e4e2e2",
+                        "tertiary-fixed": "#e3e3dd",
+                        "on-surface": "#1b1c1c",
+                        "background": "#fbf9f8",
+                        "surface-container-low": "#f5f3f3",
+                        "surface-tint": "#586400",
+                        "secondary": "#5f5e5e",
+                        "on-tertiary": "#ffffff",
+                        "on-primary-fixed-variant": "#424b00",
+                        "on-tertiary-container": "#676763",
+                        "error-container": "#ffdad6",
+                        "on-error-container": "#93000a",
+                        "on-tertiary-fixed-variant": "#464743",
+                        "secondary-container": "#e2dfde",
+                        "tertiary": "#5e5f5a",
+                        "secondary-fixed": "#e5e2e1",
+                        "on-secondary-fixed-variant": "#474746",
+                        "surface-dim": "#dbdad9",
+                        "secondary-fixed-dim": "#c8c6c5",
+                        "surface-variant": "#e4e2e2",
+                        "on-primary": "#ffffff",
+                        "surface": "#fbf9f8",
+                        "error": "#ba1a1a",
+                        "primary-container": "#d9f400",
+                        "on-secondary": "#ffffff",
+                        "outline": "#767960",
+                        "tertiary-container": "#e8e7e1",
+                        "outline-variant": "#c7c9ac",
+                        "inverse-surface": "#303031",
+                        "inverse-primary": "#bbd200",
+                        "on-primary-container": "#606d00",
+                        "surface-container-lowest": "#ffffff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "lg": "48px",
+                        "base": "8px",
+                        "sm": "12px",
+                        "xl": "80px",
+                        "xs": "4px",
+                        "gutter": "24px",
+                        "md": "24px",
+                        "container-max": "1280px"
+                    },
+                    "fontFamily": {
+                        "display": ["Space Grotesk", "sans-serif"],
+                        "headline-md": ["Space Grotesk", "sans-serif"],
+                        "body-lg": ["Manrope", "sans-serif"],
+                        "headline-lg": ["Space Grotesk", "sans-serif"],
+                        "body-md": ["Manrope", "sans-serif"],
+                        "label-sm": ["Space Grotesk", "sans-serif"]
+                    },
+                    "fontSize": {
+                        "display": ["64px", { "lineHeight": "1.1", "letterSpacing": "-0.04em", "fontWeight": "500" }],
+                        "headline-md": ["24px", { "lineHeight": "1.3", "fontWeight": "500" }],
+                        "body-lg": ["18px", { "lineHeight": "1.6", "fontWeight": "400" }],
+                        "headline-lg": ["40px", { "lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "500" }],
+                        "body-md": ["16px", { "lineHeight": "1.6", "fontWeight": "400" }],
+                        "label-sm": ["12px", { "lineHeight": "1", "letterSpacing": "0.05em", "fontWeight": "600" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .material-symbols-outlined.filled {
+            font-variation-settings: 'FILL' 1;
+        }
+        
+        /* Dark mode scrollbars */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #18181b; 
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #3f3f46; 
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #52525b; 
+        }
+    </style>
+</head>
+<body class="bg-zinc-950 text-zinc-300 font-body-md h-screen overflow-hidden flex flex-col selection:bg-lime-400/30 selection:text-white">
+<!-- TopNavBar -->
+<nav class="flex justify-between items-center w-full px-6 h-14 sticky top-0 z-50 bg-zinc-950/80 backdrop-blur-md border-b border-zinc-800 font-['Space_Grotesk'] font-medium antialiased">
+<div class="flex items-center gap-6">
+<div class="text-xl font-bold tracking-tighter text-white flex items-center gap-2">
+<span class="material-symbols-outlined text-lime-400">terminal</span>
+                DebugMaster
+            </div>
+<div class="hidden md:flex items-center gap-6 ml-4">
+<a class="text-white border-b-2 border-lime-400 pb-1" href="#">Dashboard</a>
+<a class="text-zinc-400 hover:text-lime-500 transition-colors duration-200" href="#">Projects</a>
+<a class="text-zinc-400 hover:text-lime-500 transition-colors duration-200" href="#">Documentation</a>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<div class="relative hidden sm:block mr-4">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-zinc-500 text-sm">search</span>
+<input class="bg-zinc-900 border border-zinc-800 text-zinc-300 text-sm rounded-md pl-9 pr-4 py-1.5 focus:outline-none focus:border-lime-400 focus:ring-1 focus:ring-lime-400/50 transition-all w-64 placeholder-zinc-600 font-body-md" placeholder="Search commands..." type="text"/>
+</div>
+<button class="text-zinc-400 hover:text-lime-400 transition-colors scale-95 active:transition-transform">
+<span class="material-symbols-outlined">light_mode</span>
+</button>
+<button class="text-zinc-400 hover:text-lime-400 transition-colors scale-95 active:transition-transform">
+<span class="material-symbols-outlined">settings</span>
+</button>
+<button class="text-zinc-400 hover:text-lime-400 transition-colors scale-95 active:transition-transform">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="ml-2 bg-lime-400 text-zinc-950 px-4 py-1.5 rounded-md font-bold text-sm hover:bg-lime-500 transition-colors scale-95 active:transition-transform font-['Space_Grotesk']">
+                Deploy
+            </button>
+</div>
+</nav>
+<!-- Main Workspace Area -->
+<div class="flex flex-1 overflow-hidden relative">
+<!-- SideNavBar -->
+<aside class="fixed left-0 top-14 bottom-6 flex flex-col items-center py-4 z-40 bg-zinc-950 border-r border-zinc-800 w-16 font-['Space_Grotesk'] text-xs uppercase tracking-widest transition-all duration-150 ease-in-out">
+<div class="flex flex-col gap-2 w-full mt-2">
+<a class="w-full flex justify-center py-3 text-zinc-400 hover:bg-zinc-900 hover:text-zinc-100 group relative" href="#">
+<span class="material-symbols-outlined group-hover:scale-110 transition-transform">folder_open</span>
+</a>
+<a class="w-full flex justify-center py-3 text-zinc-400 hover:bg-zinc-900 hover:text-zinc-100 group relative" href="#">
+<span class="material-symbols-outlined group-hover:scale-110 transition-transform">search</span>
+</a>
+<a class="w-full flex justify-center py-3 text-zinc-400 hover:bg-zinc-900 hover:text-zinc-100 group relative" href="#">
+<span class="material-symbols-outlined group-hover:scale-110 transition-transform">schema</span>
+</a>
+<a class="w-full flex justify-center py-3 bg-zinc-800 border-l-2 border-lime-400 text-white group relative" href="#">
+<span class="material-symbols-outlined text-lime-400">bug_report</span>
+</a>
+<a class="w-full flex justify-center py-3 text-zinc-400 hover:bg-zinc-900 hover:text-zinc-100 group relative" href="#">
+<span class="material-symbols-outlined group-hover:scale-110 transition-transform">extension</span>
+</a>
+</div>
+<div class="mt-auto flex flex-col gap-2 w-full mb-2">
+<a class="w-full flex justify-center py-3 text-zinc-400 hover:bg-zinc-900 hover:text-zinc-100 group" href="#">
+<span class="material-symbols-outlined group-hover:scale-110 transition-transform">account_circle</span>
+</a>
+<a class="w-full flex justify-center py-3 text-zinc-400 hover:bg-zinc-900 hover:text-zinc-100 group" href="#">
+<span class="material-symbols-outlined group-hover:scale-110 transition-transform">settings</span>
+</a>
+</div>
+</aside>
+<!-- Content Canvas -->
+<main class="flex-1 ml-16 flex h-full bg-zinc-950 overflow-hidden">
+<!-- Left Panel: Run & Debug -->
+<div class="w-72 border-r border-zinc-800 bg-zinc-900/50 flex flex-col h-full flex-shrink-0">
+<div class="p-4 border-b border-zinc-800 flex justify-between items-center bg-zinc-900/80">
+<div>
+<h2 class="font-headline-md text-sm text-zinc-200">RUN &amp; DEBUG</h2>
+<div class="text-[10px] text-zinc-500 font-mono mt-1">session_id: ax_772b</div>
+</div>
+<button class="text-zinc-400 hover:text-lime-400">
+<span class="material-symbols-outlined text-sm">more_horiz</span>
+</button>
+</div>
+<div class="p-4 flex-1 overflow-y-auto">
+<!-- Config Selector -->
+<div class="mb-6">
+<label class="text-[10px] font-label-sm text-zinc-500 uppercase tracking-widest mb-2 block">Configuration</label>
+<div class="flex items-center gap-2">
+<select class="flex-1 bg-zinc-950 border border-zinc-800 text-zinc-300 text-sm rounded px-2 py-1.5 focus:border-lime-400 focus:ring-0 outline-none">
+<option>Node.js: API Server</option>
+<option>Python: Data Pipeline</option>
+<option>Go: Microservice</option>
+</select>
+<button class="bg-lime-400/10 text-lime-400 hover:bg-lime-400 hover:text-zinc-950 p-1.5 rounded border border-lime-400/30 transition-colors">
+<span class="material-symbols-outlined text-sm filled">play_arrow</span>
+</button>
+</div>
+</div>
+<!-- Variables Tree -->
+<div class="mb-6">
+<label class="text-[10px] font-label-sm text-zinc-500 uppercase tracking-widest mb-2 flex justify-between items-center cursor-pointer hover:text-zinc-300">
+                            VARIABLES
+                            <span class="material-symbols-outlined text-sm">expand_more</span>
+</label>
+<div class="pl-2 border-l border-zinc-800 space-y-1">
+<div class="flex items-center gap-1 text-sm font-mono text-zinc-300">
+<span class="material-symbols-outlined text-[14px] text-zinc-500">expand_more</span>
+<span class="text-blue-400">Local</span>
+</div>
+<div class="pl-5 space-y-1 text-xs font-mono">
+<div class="flex items-center gap-2 hover:bg-zinc-800 px-1 rounded cursor-pointer">
+<span class="text-purple-400">req</span><span class="text-zinc-500">:</span> <span class="text-zinc-400">Object</span>
+</div>
+<div class="flex items-center gap-2 hover:bg-zinc-800 px-1 rounded cursor-pointer">
+<span class="text-purple-400">res</span><span class="text-zinc-500">:</span> <span class="text-zinc-400">Object</span>
+</div>
+<div class="flex items-center gap-2 hover:bg-zinc-800 px-1 rounded cursor-pointer">
+<span class="text-purple-400">userId</span><span class="text-zinc-500">:</span> <span class="text-orange-400">"usr_9981a"</span>
+</div>
+<div class="flex items-center gap-2 bg-lime-400/10 px-1 rounded border border-lime-400/20">
+<span class="text-purple-400 font-bold">isValid</span><span class="text-zinc-500">:</span> <span class="text-red-400 font-bold">false</span>
+<span class="material-symbols-outlined text-[12px] text-lime-400 ml-auto">edit</span>
+</div>
+</div>
+<div class="flex items-center gap-1 text-sm font-mono text-zinc-300 mt-2">
+<span class="material-symbols-outlined text-[14px] text-zinc-500">chevron_right</span>
+<span class="text-blue-400">Closure</span>
+</div>
+<div class="flex items-center gap-1 text-sm font-mono text-zinc-300">
+<span class="material-symbols-outlined text-[14px] text-zinc-500">chevron_right</span>
+<span class="text-blue-400">Global</span>
+</div>
+</div>
+</div>
+<!-- Call Stack -->
+<div class="mb-6">
+<label class="text-[10px] font-label-sm text-zinc-500 uppercase tracking-widest mb-2 flex justify-between items-center cursor-pointer hover:text-zinc-300">
+                            CALL STACK
+                            <span class="material-symbols-outlined text-sm">expand_more</span>
+</label>
+<div class="pl-2 border-l border-zinc-800 space-y-1 text-xs font-mono">
+<div class="flex items-center justify-between hover:bg-zinc-800 px-1 py-0.5 rounded cursor-pointer text-zinc-400">
+<span class="truncate">validateUserAuth</span>
+<span class="text-zinc-600 text-[10px]">auth.js:42</span>
+</div>
+<div class="flex items-center justify-between bg-zinc-800 text-lime-400 px-1 py-0.5 rounded cursor-pointer border-l-2 border-lime-400">
+<span class="truncate font-bold">processRequest</span>
+<span class="text-zinc-500 text-[10px]">handler.js:118</span>
+</div>
+<div class="flex items-center justify-between hover:bg-zinc-800 px-1 py-0.5 rounded cursor-pointer text-zinc-400">
+<span class="truncate">app.post</span>
+<span class="text-zinc-600 text-[10px]">routes.js:24</span>
+</div>
+</div>
+</div>
+<!-- Breakpoints -->
+<div>
+<label class="text-[10px] font-label-sm text-zinc-500 uppercase tracking-widest mb-2 flex justify-between items-center cursor-pointer hover:text-zinc-300">
+                            BREAKPOINTS
+                            <div class="flex gap-1">
+<span class="material-symbols-outlined text-[14px]">add</span>
+<span class="material-symbols-outlined text-[14px]">expand_more</span>
+</div>
+</label>
+<div class="space-y-1 text-xs font-mono">
+<div class="flex items-center gap-2 hover:bg-zinc-800 px-1 py-1 rounded cursor-pointer text-zinc-300">
+<div class="w-2.5 h-2.5 rounded-full bg-red-500 border border-red-900"></div>
+<span class="truncate">handler.js</span>
+<span class="text-zinc-500 ml-auto">118</span>
+</div>
+<div class="flex items-center gap-2 hover:bg-zinc-800 px-1 py-1 rounded cursor-pointer text-zinc-300 opacity-50">
+<div class="w-2.5 h-2.5 rounded-full border border-zinc-500"></div>
+<span class="truncate">database.js</span>
+<span class="text-zinc-500 ml-auto">45</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Main Editor Area -->
+<div class="flex-1 flex flex-col h-full bg-zinc-950 relative">
+<!-- Editor Tabs -->
+<div class="flex border-b border-zinc-800 bg-zinc-900/80 overflow-x-auto no-scrollbar">
+<div class="flex items-center gap-2 px-4 py-2 bg-zinc-950 border-t-2 border-lime-400 text-zinc-200 text-sm font-mono cursor-pointer min-w-max border-r border-zinc-800">
+<span class="material-symbols-outlined text-sm text-yellow-500">javascript</span>
+                        handler.js
+                        <button class="ml-2 text-zinc-500 hover:text-zinc-300"><span class="material-symbols-outlined text-[14px]">close</span></button>
+</div>
+<div class="flex items-center gap-2 px-4 py-2 text-zinc-500 text-sm font-mono cursor-pointer hover:bg-zinc-900 min-w-max border-r border-zinc-800">
+<span class="material-symbols-outlined text-sm text-blue-400">data_object</span>
+                        config.json
+                        <button class="ml-2 text-zinc-600 hover:text-zinc-400"><span class="material-symbols-outlined text-[14px]">close</span></button>
+</div>
+<div class="flex items-center gap-2 px-4 py-2 text-zinc-500 text-sm font-mono cursor-pointer hover:bg-zinc-900 min-w-max border-r border-zinc-800">
+<span class="material-symbols-outlined text-sm text-yellow-500">javascript</span>
+                        auth.js
+                        <button class="ml-2 text-zinc-600 hover:text-zinc-400"><span class="material-symbols-outlined text-[14px]">close</span></button>
+</div>
+</div>
+<!-- Floating Toolbar -->
+<div class="absolute top-12 right-6 z-10 flex bg-zinc-800/90 backdrop-blur border border-zinc-700 rounded-md shadow-lg overflow-hidden">
+<button class="p-1.5 text-zinc-400 hover:bg-zinc-700 hover:text-white" title="Continue (F5)"><span class="material-symbols-outlined text-sm">play_arrow</span></button>
+<button class="p-1.5 text-zinc-400 hover:bg-zinc-700 hover:text-white border-l border-zinc-700" title="Step Over (F10)"><span class="material-symbols-outlined text-sm">redo</span></button>
+<button class="p-1.5 text-zinc-400 hover:bg-zinc-700 hover:text-white border-l border-zinc-700" title="Step Into (F11)"><span class="material-symbols-outlined text-sm">download</span></button>
+<button class="p-1.5 text-zinc-400 hover:bg-zinc-700 hover:text-white border-l border-zinc-700" title="Step Out (Shift+F11)"><span class="material-symbols-outlined text-sm">upload</span></button>
+<button class="p-1.5 text-zinc-400 hover:bg-zinc-700 hover:text-white border-l border-zinc-700" title="Restart (Ctrl+Shift+F5)"><span class="material-symbols-outlined text-sm">refresh</span></button>
+<button class="p-1.5 text-red-400 hover:bg-red-500/20 hover:text-red-300 border-l border-zinc-700" title="Stop (Shift+F5)"><span class="material-symbols-outlined text-sm">stop</span></button>
+</div>
+<!-- Code Editor -->
+<div class="flex-1 overflow-auto font-mono text-[13px] leading-relaxed bg-[#111113]">
+<div class="flex">
+<!-- Line Numbers -->
+<div class="w-12 flex-shrink-0 text-right pr-3 py-4 text-zinc-600 select-none bg-[#18181b] border-r border-zinc-800 space-y-1">
+<div>110</div>
+<div>111</div>
+<div>112</div>
+<div>113</div>
+<div>114</div>
+<div>115</div>
+<div>116</div>
+<div>117</div>
+<div class="text-zinc-300 font-bold bg-zinc-800 rounded -ml-2 pr-3">118</div>
+<div>119</div>
+<div>120</div>
+<div>121</div>
+<div>122</div>
+<div>123</div>
+<div>124</div>
+<div>125</div>
+<div>126</div>
+</div>
+<!-- Code Content -->
+<div class="flex-1 py-4 pl-4 pr-8 relative whitespace-pre space-y-1 text-zinc-300">
+<div><span class="text-purple-400">async function</span> <span class="text-blue-300">processRequest</span>(req, res) {</div>
+<div> <span class="text-purple-400">try</span> {</div>
+<div> <span class="text-purple-400">const</span> userId <span class="text-zinc-400">=</span> req.<span class="text-blue-200">body</span>.<span class="text-blue-200">userId</span>;</div>
+<div> <span class="text-green-600 italic">// Validate incoming token against redis cache</span></div>
+<div> <span class="text-purple-400">const</span> isValid <span class="text-zinc-400">=</span> <span class="text-purple-400">await</span> <span class="text-blue-300">validateUserAuth</span>(userId, req.<span class="text-blue-200">headers</span>.<span class="text-blue-200">authorization</span>);</div>
+<div> </div>
+<div> <span class="text-purple-400">if</span> (<span class="text-zinc-400">!</span>isValid) {</div>
+<div class="absolute left-0 w-full h-[22px] bg-lime-400/10 border-y border-lime-400/30 flex items-center -z-10 mt-[-2px]"></div>
+<div class="text-zinc-100"><span class="absolute -left-3 top-1/2 -translate-y-1/2 w-2 h-2 rounded-full bg-red-500 z-10 shadow-[0_0_8px_rgba(239,68,68,0.8)]"></span> <span class="text-green-600 italic">// Execution paused here</span></div>
+<div class="text-zinc-100 font-medium"> <span class="text-purple-400">return</span> res.<span class="text-blue-300">status</span>(<span class="text-orange-300">401</span>).<span class="text-blue-300">json</span>({ <span class="text-blue-200">error</span><span class="text-zinc-400">:</span> <span class="text-orange-400">'Unauthorized access attempt'</span> });</div>
+<div>    }</div>
+<div> </div>
+<div> <span class="text-purple-400">const</span> data <span class="text-zinc-400">=</span> <span class="text-purple-400">await</span> Database.<span class="text-blue-300">query</span>(</div>
+<div> <span class="text-orange-400">'SELECT * FROM user_metrics WHERE id = ?'</span>, </div>
+<div>      [userId]</div>
+<div>    );</div>
+<div> </div>
+<div> <span class="text-purple-400">return</span> res.<span class="text-blue-300">json</span>({ <span class="text-blue-200">success</span><span class="text-zinc-400">:</span> <span class="text-orange-300">true</span>, <span class="text-blue-200">data</span> });</div>
+</div>
+</div>
+</div>
+<!-- Integrated Terminal / Console -->
+<div class="h-64 border-t border-zinc-800 bg-[#0c0c0d] flex flex-col flex-shrink-0">
+<div class="flex border-b border-zinc-800 px-2 bg-zinc-900/50">
+<button class="px-4 py-2 text-xs font-label-sm uppercase tracking-widest text-zinc-500 hover:text-zinc-300">PROBLEMS</button>
+<button class="px-4 py-2 text-xs font-label-sm uppercase tracking-widest text-zinc-500 hover:text-zinc-300">OUTPUT</button>
+<button class="px-4 py-2 text-xs font-label-sm uppercase tracking-widest text-lime-400 border-b-2 border-lime-400">DEBUG CONSOLE</button>
+<button class="px-4 py-2 text-xs font-label-sm uppercase tracking-widest text-zinc-500 hover:text-zinc-300">TERMINAL</button>
+<div class="ml-auto flex items-center gap-2 pr-2">
+<span class="material-symbols-outlined text-[16px] text-zinc-500 hover:text-zinc-300 cursor-pointer">delete</span>
+<span class="material-symbols-outlined text-[16px] text-zinc-500 hover:text-zinc-300 cursor-pointer">expand_less</span>
+<span class="material-symbols-outlined text-[16px] text-zinc-500 hover:text-zinc-300 cursor-pointer">close</span>
+</div>
+</div>
+<div class="flex-1 p-3 font-mono text-[12px] text-zinc-400 overflow-y-auto space-y-1">
+<div><span class="text-zinc-600">[Info]</span> Debugger attached to Node.js v18.16.0</div>
+<div><span class="text-blue-400">[Log]</span> Server listening on port 3000</div>
+<div><span class="text-blue-400">[Log]</span> Database connection established</div>
+<div><span class="text-zinc-600">[Info]</span> Incoming request: POST /api/v1/metrics</div>
+<div class="flex items-start gap-2 text-red-400 bg-red-950/30 p-1 border-l-2 border-red-500 rounded-r">
+<span class="material-symbols-outlined text-[14px] mt-0.5">error</span>
+<div>
+<span class="font-bold">AuthWarning</span>: Token validation failed for user usr_9981a
+                                <div class="text-zinc-500 mt-1 pl-4">at validateUserAuth (auth.js:42:15)</div>
+<div class="text-zinc-500 pl-4">at processRequest (handler.js:114:21)</div>
+</div>
+</div>
+<div class="flex items-center gap-2 mt-4 text-zinc-300">
+<span class="text-blue-400 font-bold">&gt;</span>
+<input class="bg-transparent border-none outline-none flex-1 font-mono text-[12px] focus:ring-0 p-0" placeholder="Evaluate expression..." type="text"/>
+</div>
+</div>
+</div>
+</div>
+<!-- Right Panel: AI Assistant (Bento/Glassmorphism) -->
+<div class="w-80 border-l border-zinc-800 bg-zinc-950 flex flex-col h-full flex-shrink-0 relative">
+<!-- Subtle background gradient for AI feel -->
+<div class="absolute top-0 right-0 w-full h-64 bg-gradient-to-b from-lime-400/5 to-transparent pointer-events-none"></div>
+<div class="p-4 border-b border-zinc-800 flex justify-between items-center z-10 backdrop-blur-sm bg-zinc-950/80">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-lime-400 text-lg">smart_toy</span>
+<h2 class="font-headline-md text-sm text-zinc-200">AI ASSISTANT</h2>
+</div>
+</div>
+<div class="p-4 flex-1 overflow-y-auto z-10 space-y-4">
+<!-- Context Card -->
+<div class="border border-zinc-800 rounded-lg p-3 bg-zinc-900/50 hover:border-lime-400/50 transition-colors">
+<div class="text-[10px] font-label-sm text-zinc-500 uppercase tracking-widest mb-2">Current Context</div>
+<div class="text-xs text-zinc-300 font-mono bg-zinc-950 p-2 rounded border border-zinc-800">
+                            Stopped at breakpoint in <span class="text-yellow-400">handler.js:118</span>
+</div>
+</div>
+<!-- AI Suggestion Bento Box -->
+<div class="border border-lime-400/20 rounded-lg p-4 bg-gradient-to-br from-lime-400/5 to-zinc-900 shadow-[inset_0_1px_0_rgba(217,244,0,0.1)] relative overflow-hidden group">
+<div class="absolute -right-4 -top-4 w-16 h-16 bg-lime-400/10 blur-xl rounded-full group-hover:bg-lime-400/20 transition-all"></div>
+<div class="flex items-start gap-3 mb-3">
+<div class="bg-lime-400/10 p-1.5 rounded text-lime-400 border border-lime-400/20">
+<span class="material-symbols-outlined text-sm">lightbulb</span>
+</div>
+<div>
+<h3 class="text-sm font-medium text-zinc-200">Analysis Found Issue</h3>
+<p class="text-xs text-zinc-400 mt-1">The variable <code class="text-lime-300 font-mono">isValid</code> is evaluating to false because the Redis cache token has expired.</p>
+</div>
+</div>
+<div class="bg-zinc-950 border border-zinc-800 rounded p-2 text-[11px] font-mono text-zinc-300 mb-3 overflow-x-auto">
+<div class="text-red-400 line-through opacity-70">- const isValid = await validateUserAuth(userId, token);</div>
+<div class="text-green-400">+ const isValid = await validateUserAuth(userId, token, { refresh: true });</div>
+</div>
+<div class="flex gap-2">
+<button class="flex-1 bg-lime-400 text-zinc-950 py-1.5 px-3 rounded text-xs font-bold hover:bg-lime-500 transition-colors">Apply Fix</button>
+<button class="bg-zinc-800 text-zinc-300 py-1.5 px-3 rounded text-xs border border-zinc-700 hover:bg-zinc-700 transition-colors">Explain</button>
+</div>
+</div>
+<!-- Related Issues Glass Card -->
+<div class="border border-zinc-800 rounded-lg p-4 bg-zinc-900/30 backdrop-blur-md">
+<div class="text-[10px] font-label-sm text-zinc-500 uppercase tracking-widest mb-3">Similar Past Issues</div>
+<div class="space-y-3">
+<div class="flex gap-3 items-start cursor-pointer group">
+<span class="material-symbols-outlined text-[14px] text-zinc-500 group-hover:text-lime-400 mt-0.5">check_circle</span>
+<div>
+<div class="text-xs text-zinc-300 group-hover:text-white">Token refresh race condition</div>
+<div class="text-[10px] text-zinc-500 font-mono mt-0.5">Resolved 2 days ago • PR #842</div>
+</div>
+</div>
+<div class="flex gap-3 items-start cursor-pointer group">
+<span class="material-symbols-outlined text-[14px] text-zinc-500 group-hover:text-lime-400 mt-0.5">check_circle</span>
+<div>
+<div class="text-xs text-zinc-300 group-hover:text-white">Redis connection timeout on auth</div>
+<div class="text-[10px] text-zinc-500 font-mono mt-0.5">Resolved last week • PR #815</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Chat Input Area -->
+<div class="p-3 border-t border-zinc-800 bg-zinc-950 z-10">
+<div class="relative">
+<textarea class="w-full bg-zinc-900 border border-zinc-800 rounded-md py-2 pl-3 pr-10 text-sm text-zinc-200 placeholder-zinc-600 focus:outline-none focus:border-lime-400 focus:ring-1 focus:ring-lime-400/30 resize-none font-body-md" placeholder="Ask AI about this error..." rows="2"></textarea>
+<button class="absolute right-2 bottom-2 bg-lime-400/10 text-lime-400 p-1.5 rounded hover:bg-lime-400 hover:text-zinc-950 transition-colors">
+<span class="material-symbols-outlined text-sm">send</span>
+</button>
+</div>
+</div>
+</div>
+</main>
+</div>
+<!-- Footer -->
+<footer class="fixed bottom-0 left-0 w-full h-6 px-4 flex justify-between items-center z-50 bg-zinc-950 border-t border-zinc-800 font-['Space_Grotesk'] text-[10px] font-mono tracking-tight">
+<div class="text-zinc-500">
+            © 2024 DebugMaster AI • System: Latency 24ms
+        </div>
+<div class="flex items-center gap-4">
+<a class="text-lime-400 font-bold cursor-pointer transition-opacity opacity-80 hover:opacity-100" href="#">v1.2.0</a>
+<a class="text-zinc-500 hover:text-zinc-200 cursor-pointer transition-opacity opacity-80 hover:opacity-100" href="#">Logs</a>
+<a class="text-zinc-500 hover:text-zinc-200 cursor-pointer transition-opacity opacity-80 hover:opacity-100" href="#">Console</a>
+<a class="text-zinc-500 hover:text-zinc-200 cursor-pointer transition-opacity opacity-80 hover:opacity-100" href="#">Support</a>
+<div class="flex items-center gap-1 text-zinc-500 ml-2 border-l border-zinc-800 pl-4">
+<span class="w-2 h-2 rounded-full bg-lime-400"></span>
+                Connected
+            </div>
+</div>
+</footer>
+</body></html>

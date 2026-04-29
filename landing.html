@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "secondary": "#9ddf2e",
+                    "on-secondary-fixed": "#121f00",
+                    "tertiary-container": "#8083ff",
+                    "on-background": "#e5e2e1",
+                    "on-secondary": "#213600",
+                    "error-container": "#93000a",
+                    "on-surface": "#e5e2e1",
+                    "tertiary": "#c0c1ff",
+                    "on-primary-fixed-variant": "#004299",
+                    "surface-container": "#201f1f",
+                    "surface-bright": "#3a3939",
+                    "surface": "#131313",
+                    "inverse-surface": "#e5e2e1",
+                    "outline": "#8c90a0",
+                    "surface-container-high": "#2a2a2a",
+                    "on-error-container": "#ffdad6",
+                    "on-primary-container": "#00275f",
+                    "secondary-fixed": "#b2f746",
+                    "secondary-fixed-dim": "#98da27",
+                    "surface-tint": "#afc6ff",
+                    "surface-container-lowest": "#0e0e0e",
+                    "primary": "#afc6ff",
+                    "on-tertiary": "#1000a9",
+                    "outline-variant": "#424754",
+                    "secondary-container": "#83c300",
+                    "primary-container": "#528dff",
+                    "on-error": "#690005",
+                    "surface-container-highest": "#353534",
+                    "on-tertiary-fixed": "#07006c",
+                    "surface-container-low": "#1c1b1b",
+                    "on-primary": "#002d6d",
+                    "inverse-on-surface": "#313030",
+                    "on-surface-variant": "#c2c6d7",
+                    "on-primary-fixed": "#001944",
+                    "tertiary-fixed": "#e1e0ff",
+                    "on-tertiary-fixed-variant": "#2f2ebe",
+                    "inverse-primary": "#0059c7",
+                    "error": "#ffb4ab",
+                    "surface-variant": "#353534",
+                    "on-secondary-container": "#304b00",
+                    "surface-dim": "#131313",
+                    "on-tertiary-container": "#0d0096",
+                    "on-secondary-fixed-variant": "#334f00",
+                    "tertiary-fixed-dim": "#c0c1ff",
+                    "primary-fixed": "#d9e2ff",
+                    "primary-fixed-dim": "#afc6ff",
+                    "background": "#131313"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "spacing": {
+                    "md": "24px",
+                    "gutter": "20px",
+                    "lg": "48px",
+                    "base": "4px",
+                    "margin": "32px",
+                    "sm": "16px",
+                    "xl": "80px",
+                    "xs": "8px"
+            },
+            "fontFamily": {
+                    "display-lg": ["Inter"],
+                    "code-base": ["monospace"],
+                    "body-sm": ["Inter"],
+                    "body-base": ["Inter"],
+                    "label-caps": ["Inter"],
+                    "headline-md": ["Inter"]
+            },
+            "fontSize": {
+                    "display-lg": ["32px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "code-base": ["14px", {"lineHeight": "1.7", "letterSpacing": "0", "fontWeight": "400"}],
+                    "body-sm": ["14px", {"lineHeight": "1.5", "letterSpacing": "0", "fontWeight": "400"}],
+                    "body-base": ["16px", {"lineHeight": "1.6", "letterSpacing": "0", "fontWeight": "400"}],
+                    "label-caps": ["12px", {"lineHeight": "1", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                    "headline-md": ["24px", {"lineHeight": "1.3", "letterSpacing": "-0.01em", "fontWeight": "600"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body {
+            background-color: #131313;
+            color: #e5e2e1;
+        }
+        .code-grid-bg {
+            background-image: linear-gradient(#1c1b1b 1px, transparent 1px), linear-gradient(90deg, #1c1b1b 1px, transparent 1px);
+            background-size: 32px 32px;
+        }
+    </style>
+</head>
+<body class="font-body-base antialiased min-h-screen flex flex-col overflow-x-hidden">
+<!-- TopNavBar from JSON -->
+<header class="bg-gray-950 text-blue-500 font-mono antialiased flex justify-between items-center px-6 h-14 w-full z-50 fixed top-0 border-b border-gray-800 flat no shadows">
+<div class="text-xl font-bold tracking-tighter text-blue-500">DebugMaster</div>
+<nav class="hidden md:flex items-center space-x-md">
+<a class="text-gray-400 hover:text-gray-200 transition-colors" href="#">Challenges</a>
+<a class="text-gray-400 hover:text-gray-200 transition-colors" href="#">Leaderboard</a>
+<a class="text-gray-400 hover:text-gray-200 transition-colors" href="#">Docs</a>
+<a class="text-gray-400 hover:text-gray-200 transition-colors" href="#">Community</a>
+</nav>
+<div class="flex items-center space-x-sm">
+<button class="text-gray-400 hover:text-gray-200 transition-colors text-xs uppercase tracking-widest font-bold">Sign In</button>
+<button class="bg-primary text-on-primary px-sm py-xs font-bold text-xs uppercase tracking-widest hover:bg-primary-container transition-all active:opacity-80 active:scale-95">Try it Now</button>
+</div>
+</header>
+<main class="flex-grow pt-14">
+<!-- Hero Section -->
+<section class="relative min-h-[819px] flex flex-col items-center justify-center px-6 text-center code-grid-bg overflow-hidden">
+<div class="absolute inset-0 bg-gradient-to-b from-transparent via-background/50 to-background pointer-events-none"></div>
+<div class="relative z-10 max-w-4xl mx-auto">
+<div class="inline-flex items-center space-x-xs bg-surface-container-high border border-outline-variant px-sm py-base rounded-full mb-md">
+<span class="w-2 h-2 rounded-full bg-secondary animate-pulse"></span>
+<span class="font-label-caps text-on-surface-variant uppercase">Beta v2.0 Live Now</span>
+</div>
+<h1 class="font-display-lg text-display-lg md:text-6xl text-white mb-sm tracking-tighter uppercase italic">
+                    Break Code, <br class="md:hidden"/> <span class="text-primary">Not Your Spirit.</span>
+</h1>
+<p class="font-body-base text-body-base text-on-surface-variant max-w-2xl mx-auto mb-lg leading-relaxed">
+                    The ultimate sandbox to sharpen your debugging instincts with real-world scenarios. Master complex stack traces, memory leaks, and concurrency bugs in a controlled environment.
+                </p>
+<div class="flex flex-col sm:flex-row items-center justify-center gap-sm">
+<button class="w-full sm:w-auto bg-primary text-on-primary px-lg py-sm font-bold text-base uppercase tracking-wider hover:opacity-90 transition-all transform active:scale-95">
+                        Start Debugging
+                    </button>
+<button class="w-full sm:w-auto border border-outline-variant text-on-surface px-lg py-sm font-bold text-base uppercase tracking-wider hover:bg-surface-variant transition-all">
+                        View Sandbox
+                    </button>
+</div>
+</div>
+<!-- Decorative Terminal Component -->
+<div class="relative z-10 mt-xl w-full max-w-3xl mx-auto border border-outline-variant bg-surface-container-lowest rounded-lg overflow-hidden shadow-2xl">
+<div class="bg-surface-container flex items-center px-sm py-xs border-b border-outline-variant">
+<div class="flex space-x-2">
+<div class="w-3 h-3 rounded-full bg-error/40"></div>
+<div class="w-3 h-3 rounded-full bg-secondary-container/40"></div>
+<div class="w-3 h-3 rounded-full bg-primary-container/40"></div>
+</div>
+<div class="mx-auto font-code-base text-xs text-on-surface-variant">debug_session.log — 124 errors found</div>
+</div>
+<div class="p-md font-code-base text-code-base text-left overflow-hidden">
+<div class="text-secondary opacity-80 mb-base">&gt; initializing debug_master_v2...</div>
+<div class="text-error mb-base">[CRITICAL] Uncaught TypeError: Cannot read property 'instincts' of undefined</div>
+<div class="text-on-surface-variant mb-base">  at userSession.execute (core.js:42:15)</div>
+<div class="text-on-surface-variant mb-base">  at spirit.maintain (internal_engine.py:102)</div>
+<div class="text-primary mb-base">&gt; breakpoint hit at line 42. waiting for input...</div>
+<div class="flex items-center space-x-2">
+<span class="text-secondary">_</span>
+<div class="w-2 h-4 bg-primary animate-pulse"></div>
+</div>
+</div>
+</div>
+</section>
+<!-- Features Bento Grid -->
+<section class="py-xl px-6 max-w-7xl mx-auto">
+<div class="mb-lg">
+<h2 class="font-headline-md text-headline-md text-white mb-xs">Advanced Tooling</h2>
+<p class="text-on-surface-variant font-body-sm">Designed for precision debugging at scale.</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-gutter">
+<!-- Feature 1: Live Challenges -->
+<div class="group bg-surface-container-low border border-outline-variant p-md hover:border-primary transition-all duration-300">
+<div class="mb-md">
+<span class="material-symbols-outlined text-primary text-4xl" data-icon="terminal">terminal</span>
+</div>
+<h3 class="font-headline-md text-xl text-white mb-sm">Live Challenges</h3>
+<p class="text-on-surface-variant font-body-sm leading-relaxed mb-md">
+                        Face real-time production outages simulated in a secure environment. Race against the clock to restore services.
+                    </p>
+<div class="mt-auto border-t border-outline-variant pt-sm group-hover:border-primary transition-colors">
+<span class="text-xs font-label-caps text-primary uppercase">Explore Scenarios</span>
+</div>
+</div>
+<!-- Feature 2: Performance Analytics -->
+<div class="group bg-surface-container-low border border-outline-variant p-md hover:border-secondary transition-all duration-300">
+<div class="mb-md">
+<span class="material-symbols-outlined text-secondary text-4xl" data-icon="monitoring">monitoring</span>
+</div>
+<h3 class="font-headline-md text-xl text-white mb-sm">Performance Analytics</h3>
+<p class="text-on-surface-variant font-body-sm leading-relaxed mb-md">
+                        Deep dive into CPU cycles and memory allocations. Visualize bottlenecks with high-fidelity flame graphs.
+                    </p>
+<div class="mt-auto border-t border-outline-variant pt-sm group-hover:border-secondary transition-colors">
+<span class="text-xs font-label-caps text-secondary uppercase">View Metrics</span>
+</div>
+</div>
+<!-- Feature 3: Community Solutions -->
+<div class="group bg-surface-container-low border border-outline-variant p-md hover:border-tertiary transition-all duration-300">
+<div class="mb-md">
+<span class="material-symbols-outlined text-tertiary text-4xl" data-icon="groups">groups</span>
+</div>
+<h3 class="font-headline-md text-xl text-white mb-sm">Community Solutions</h3>
+<p class="text-on-surface-variant font-body-sm leading-relaxed mb-md">
+                        Learn from the best. Review peer solutions, vote on elegant fixes, and build your reputation in the debugging elite.
+                    </p>
+<div class="mt-auto border-t border-outline-variant pt-sm group-hover:border-tertiary transition-colors">
+<span class="text-xs font-label-caps text-tertiary uppercase">Join Discussion</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Product Preview Section -->
+<section class="py-xl px-6 bg-surface-container-lowest">
+<div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-xl items-center">
+<div>
+<h2 class="font-display-lg text-display-lg text-white mb-sm uppercase italic">High-Fidelity Simulation</h2>
+<p class="text-on-surface-variant font-body-base mb-md leading-relaxed">
+                        We don't just give you broken code; we give you a broken world. From flaky microservices to corrupt database indices, our engine replicates the exact pressure of a 3 AM pager call.
+                    </p>
+<ul class="space-y-sm mb-lg">
+<li class="flex items-center space-x-sm text-on-surface">
+<span class="material-symbols-outlined text-secondary" data-icon="check_circle">check_circle</span>
+<span class="font-label-caps">Multi-language Runtime Support</span>
+</li>
+<li class="flex items-center space-x-sm text-on-surface">
+<span class="material-symbols-outlined text-secondary" data-icon="check_circle">check_circle</span>
+<span class="font-label-caps">Integrated Network Inspector</span>
+</li>
+<li class="flex items-center space-x-sm text-on-surface">
+<span class="material-symbols-outlined text-secondary" data-icon="check_circle">check_circle</span>
+<span class="font-label-caps">V8 Engine Profiling Tools</span>
+</li>
+</ul>
+</div>
+<div class="relative group">
+<div class="absolute -inset-1 bg-gradient-to-r from-primary to-secondary blur opacity-25 group-hover:opacity-40 transition duration-1000 group-hover:duration-200"></div>
+<div class="relative bg-surface border border-outline-variant rounded-lg overflow-hidden">
+<img alt="Advanced code editor interface" class="w-full aspect-video object-cover grayscale contrast-125 opacity-80" data-alt="Close-up of a high-tech code editor with glowing syntax highlighting on a dark screen and subtle glass reflections" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBnTL3Ct1fs-bcMgaufgnuSvQFA200jUXi2EFYzPi-3y8aCdzhR_jeM5GuZrf9RAl3c0w3ItfWDO2wwwrvjyajCL8zFfx9V6jbI7m44EORQWFO91UEqsXK10rb9dVZTbwVsqIYmBqqr3vV35PvaZgugue8OAABB8FmfkdfWnnXj3wwRvmvssdElt_J0etBgvsYDb5kBlQXJNU7lniT_S1NQZQg0N2-EBymDULTdCOPVyLTGea0Wfxyd-RvAct0XiPPj3XqSZhCFxIk"/>
+<div class="absolute inset-0 bg-gradient-to-t from-background/80 to-transparent"></div>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer from JSON -->
+<footer class="w-full py-8 px-6 flex justify-between items-center mt-auto bg-gray-950 text-sm font-mono text-gray-500 border-t border-gray-900 flat">
+<div class="flex flex-col space-y-base">
+<span class="text-blue-500 font-bold">DebugMaster</span>
+<span>© 2024 DebugMaster. Built for precision.</span>
+</div>
+<div class="flex items-center space-x-md">
+<a class="text-gray-600 hover:text-blue-300 transition-opacity" href="#">Privacy</a>
+<a class="text-gray-600 hover:text-blue-300 transition-opacity" href="#">Terms</a>
+<a class="text-gray-600 hover:text-blue-300 transition-opacity" href="#">Github</a>
+<a class="text-gray-600 hover:text-blue-300 transition-opacity" href="#">Status</a>
+</div>
+</footer>
+<!-- SideNavBar from JSON (Conditional Visibility logic) -->
+<!-- Suppressed on Landing/Marketing page as per Shell Visibility rules for Transactional/Focused journeys -->
+</body></html>
