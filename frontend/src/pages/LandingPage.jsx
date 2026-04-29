@@ -45,7 +45,7 @@ export default function LandingPage() {
         </div>
         <div className="flex items-center gap-4">
           <button 
-            onClick={() => navigate('/arena')}
+            onClick={() => navigate('/arena-selection')}
             className="bg-lime-400 text-zinc-950 px-5 py-2 rounded-lg font-bold text-sm hover:bg-white active:scale-95 transition-all shadow-[0_0_15px_rgba(217,244,0,0.3)]"
           >
             Enter the Arena
@@ -76,7 +76,7 @@ export default function LandingPage() {
 
           <div className="flex flex-col sm:flex-row gap-6">
             <button 
-              onClick={() => navigate('/arena')}
+              onClick={() => navigate('/arena-selection')}
               className="bg-lime-400 text-zinc-950 px-8 py-4 rounded-xl font-bold text-lg hover:bg-white active:scale-95 transition-all flex items-center gap-3 shadow-[0_0_30px_rgba(217,244,0,0.4)]"
             >
               Enter the Arena
@@ -156,7 +156,7 @@ export default function LandingPage() {
                         Join 10,000+ developers sharpening their skills in the ultimate AI-powered arena.
                     </p>
                     <button 
-                      onClick={() => navigate('/arena')}
+                      onClick={() => navigate('/arena-selection')}
                       className="bg-zinc-950 text-white px-12 py-5 rounded-2xl font-bold text-xl hover:bg-white hover:text-zinc-950 active:scale-95 transition-all shadow-2xl"
                     >
                         Enter the Arena Now

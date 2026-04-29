@@ -62,7 +62,7 @@ app.post('/api/verify-fix', async (req, res) => {
     try {
         const result = await verifyFix(
             userCode, 
-            session.challenge.buggy_code, 
+            session.challenge.correct_code, 
             session.challenge.description
         );
 

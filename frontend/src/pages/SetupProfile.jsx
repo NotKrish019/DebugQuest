@@ -1,11 +1,12 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import { doc, updateDoc, collection, query, where, getDocs } from 'firebase/firestore';
+import { db } from '../firebase';
 import { ThemeContext } from '../App';
 import { User, Check, AlertCircle, Sparkles } from 'lucide-react';
 
 export default function SetupProfile() {
-  const { user, login } = useContext(ThemeContext);
+  const { user } = useContext(ThemeContext);
   const navigate = useNavigate();
   const [handle, setHandle] = useState('');
   const [status, setStatus] = useState('idle'); // idle, checking, available, taken, error
@@ -20,9 +21,11 @@ export default function SetupProfile() {
     const timer = setTimeout(async () => {
       setStatus('checking');
       try {
-        const res = await axios.post('/api/user/check-username', { username: handle });
-        setStatus(res.data.available ? 'available' : 'taken');
+        const q = query(collection(db, 'users'), where('username', '==', handle));
+        const querySnapshot = await getDocs(q);
+        setStatus(querySnapshot.empty ? 'available' : 'taken');
       } catch (err) {
+        console.error(err);
         setStatus('error');
       }
     }, 500);
@@ -30,25 +33,25 @@ export default function SetupProfile() {
     return () => clearTimeout(timer);
   }, [handle]);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    if (status !== 'available') return;
+    if (status !== 'available' || !user) return;
 
     setLoading(true);
-    // Simulate updating profile in Cloudant
-    setTimeout(() => {
-      const updatedUser = {
-        ...user,
+    try {
+      const userDocRef = doc(db, 'users', user.id);
+      await updateDoc(userDocRef, {
         username: handle,
-        total_xp: 1240,
-        level: 12,
-        rank_title: "Off-by-One Slayer",
-        isNew: false
-      };
-      login(updatedUser);
-      setLoading(false);
+        isNew: false,
+        rank_title: "Novice Hunter"
+      });
       navigate('/dashboard');
-    }, 1000);
+    } catch (err) {
+      console.error(err);
+      alert("Failed to update profile.");
+    } finally {
+      setLoading(false);
+    }
   };
 
   const getUsernameStyle = (level) => {

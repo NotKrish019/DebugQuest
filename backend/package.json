@@ -12,11 +12,14 @@
   "type": "commonjs",
   "dependencies": {
     "@google/genai": "^1.50.1",
+    "@google/generative-ai": "^0.24.1",
+    "@ibm-cloud/cloudant": "^0.12.19",
     "cors": "^2.8.6",
     "dotenv": "^17.4.2",
     "express": "^5.2.1",
     "express-rate-limit": "^8.4.1",
     "helmet": "^8.1.0",
+    "ibm-cloud-sdk-core": "^5.4.12",
     "morgan": "^1.10.1",
     "uuid": "^14.0.0"
   }

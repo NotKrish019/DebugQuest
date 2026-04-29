@@ -1,4 +1,4 @@
-const { GoogleGenerativeAI } = require("@google/generativeai");
+const { GoogleGenerativeAI } = require("@google/generative-ai");
 require("dotenv").config();
 
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
@@ -16,9 +16,10 @@ const generateChallenge = async (seed) => {
         "title": "A cool title for the challenge",
         "language": "javascript" or "python",
         "buggy_code": "The code with the bug",
+        "correct_code": "The full code with the bug fixed correctly",
         "description": "Short explanation of what the system is supposed to do",
         "socratic_hint": "A guiding question that doesn't give away the answer",
-        "solution_snippet": "The correct version of the bugged line(s)",
+        "solution_snippet": "Just the specific line(s) that were bugged, in their fixed form",
         "base_xp": 500
     }
     
@@ -40,14 +41,15 @@ const generateChallenge = async (seed) => {
     }
 };
 
-const verifyFix = async (userCode, originalBug, description) => {
+const verifyFix = async (userCode, correctCode, description) => {
     const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
     const prompt = `You are the "Arena Arbiter".
     System Description: ${description}
-    Original Buggy Code: ${originalBug}
+    Correct Reference Solution: ${correctCode}
     User's Submitted Code: ${userCode}
     
-    Determine if the user's code correctly fixes the logical bug without introducing new ones.
+    Determine if the user's code is logically equivalent to the correct reference solution. 
+    It doesn't have to be character-identical, but the bug must be fixed and the logic must be sound.
     
     Return in STRICT JSON format:
     {
